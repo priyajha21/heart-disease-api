@@ -5,17 +5,16 @@ import json
 
 app = FastAPI()
 
-# Load model
 model = joblib.load("model.pkl")
 
-# Load feature names
 with open("features.json") as f:
     feature_names = json.load(f)
 
 @app.post("/predict")
 def predict(data: dict):
-    # Build row in correct order
     row = {feat: data.get(feat, 0) for feat in feature_names}
     df = pd.DataFrame([row])
+    print(df)  # DEBUG: print input to server logs
     pred = model.predict(df)[0]
     return {"prediction": int(pred)}
+
