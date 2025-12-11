@@ -14,7 +14,6 @@ with open("features.json") as f:
 def predict(data: dict):
     row = {feat: data.get(feat, 0) for feat in feature_names}
     df = pd.DataFrame([row])
-    print(df)  # DEBUG: print input to server logs
+    print(df)  # DEBUG
     pred = model.predict(df)[0]
     return {"prediction": int(pred)}
-
